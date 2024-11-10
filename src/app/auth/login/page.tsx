@@ -54,11 +54,12 @@ const Login = () => {
                 const authData = {
                     token: res.data.access_token,
                     role:'',
-                    _id:'',
+                    _id:res.data.user_id,
                     name:'',
                 }
                 dispatch(addAuth(authData));
                 localStorage.setItem('token', res.data.access_token);
+                localStorage.setItem('user_id', res.data.user_id);
                 router.replace('/dashboard');
             }
         } catch (error) {
@@ -71,6 +72,12 @@ const Login = () => {
             setLoading(false); 
         }
     }
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+        if (e.key === "Enter") {
+            e.preventDefault(); 
+            form.submit(); 
+        }
+    };
     
     if (loading) {
         return <Loading />;
@@ -93,7 +100,7 @@ const Login = () => {
                                     <div className="mb-4">
                                         <Typography.Title className="mb-0">Sign In </Typography.Title>
                                     </div>
-                                    <Form form={form} layout='vertical' onFinish={ handelSignIn} size="large" >
+                                    <Form  onKeyDown={handleKeyDown} form={form} layout='vertical' onFinish={ handelSignIn} size="large" >
                                         <Form.Item name={'email'} label='Email' rules={[
                                             {'required':true , 'message':'Please Enter Your Email !'},
                                             {'type':'email' , 'message':'Please enter a valid email address!'}
@@ -105,7 +112,7 @@ const Login = () => {
                                             'required':true , 
                                             'message':'Please Enter Your Password !'
                                             }]} >
-                                            <Input placeholder='' type='password' allowClear/>
+                                            <Input.Password placeholder=''  allowClear/>
                                         </Form.Item>
                                     </Form>
                                     <div className="mt-4">
@@ -115,7 +122,7 @@ const Login = () => {
                                     </div>
 
                                     <div className="mt-4">
-                                        <Button  loading={loading}   htmlType='submit' block type='primary' onClick={ ()=> form.submit()} >Sign In</Button>
+                                        <Button  loading={loading}    htmlType='submit' block type='primary' onClick={ ()=> form.submit()} >Sign In</Button>
                                     </div>
                                     <div className="mt-4">
                                         <Typography.Text>

@@ -28,10 +28,12 @@ export default function RootLayout({
         
           <ConfigProvider theme={{
             token:{
-              colorPrimary:'#131118',
+              colorPrimary: '#131118',
               fontFamily: 'sans-serif',
             },
-            components: {},
+            components: {
+
+            },
           }}>
              <Provider>
               <AntdRegistry>

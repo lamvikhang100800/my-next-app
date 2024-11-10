@@ -9,7 +9,7 @@ export interface AuthState {
 
 const initialState: AuthState = {
     token: typeof window !== 'undefined' ? localStorage.getItem('token') ?? '' : '',
-    _id: '',
+    _id: typeof window !== 'undefined' ? localStorage.getItem('user_id') ?? '' : '', 
     name: '',
     rule: '',
 };
@@ -24,13 +24,17 @@ const authSlice = createSlice({
             state.name = action.payload.name;
             state.rule = action.payload.rule;
             localStorage.setItem('token', action.payload.token);
+            localStorage.setItem('user_id', action.payload._id);
+
         },
         clearAuth: (state) => {
             state.token = '';
             state._id = '';
             state.name = '';
             state.rule = '';
-            localStorage.removeItem('token'); 
+            localStorage.removeItem('token');
+            localStorage.removeItem('user_id'); 
+
         },
     },
 });

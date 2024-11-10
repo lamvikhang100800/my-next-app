@@ -26,7 +26,7 @@ const items = [
     key: 'page-1',
     icon: <UserOutlined />,
     label: 'User',
-    link: '/auth/register',
+    link: '/dashboard/user',
     permission_name: 'read-user',
   },
   {
